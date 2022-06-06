@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-light.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Тестовое задание - NewGen</title>
+</head>
+<body>
+<div class="container mt-5">
+    <p>
+        <b>Условие задачи:</b>
+    </p>
+
+    <p>
+        На <a href="https://unipage.net" target="_blank">сайте UniPage</a> есть подборка интересных языковых курсов. У
+        каждого
+        курса есть цена, которая является диапазоном.<br>
+        Например:
+    </p>
+
+    <ul>
+        <li>от 100 до 200 рублей;</li>
+        <li>от 500 рублей;</li>
+        <li>до 400 рублей.</li>
+    </ul>
+
+    <p>
+        Пользователю сайта нужно найти подходящие ему курсы. Для этого есть
+        фильтр, где пользователь может задать подходящий ему диапазон цен.
+    </p>
+
+    <p>
+        <b>Требование:</b>
+    </p>
+    <p>
+        Опишите, как можно отфильтровать список курсов, чтобы выдались только
+        подходящие по цене? Реализуйте на JavaScript (или TypeScript) функцию,
+        проводящую такую фильтрацию.
+    </p>
+
+    <p><b>Входные данные:</b></p>
+
+    <pre><code class="language-javascript hljs">    <span class="hljs-comment">// Список курсов</span>
+    <span class="hljs-keyword">let</span> courses = [
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">"Courses in England"</span>, <span
+                class="hljs-attr">prices</span>: [<span class="hljs-number">0</span>, <span
+                class="hljs-number">100</span>] },
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">"Courses in Germany"</span>, <span
+                class="hljs-attr">prices</span>: [<span class="hljs-number">500</span>, <span
+                class="hljs-literal">null</span>] },
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">"Courses in Italy"</span>, <span
+                class="hljs-attr">prices</span>: [<span class="hljs-number">100</span>, <span
+                class="hljs-number">200</span>] },
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">"Courses in Russia"</span>, <span
+                class="hljs-attr">prices</span>: [<span class="hljs-literal">null</span>, <span
+                class="hljs-number">400</span>] },
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">"Courses in China"</span>, <span
+                class="hljs-attr">prices</span>: [<span class="hljs-number">50</span>, <span
+                class="hljs-number">250</span>] },
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">"Courses in USA"</span>, <span
+                class="hljs-attr">prices</span>: [<span class="hljs-number">200</span>, <span
+                class="hljs-literal">null</span>] },
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">"Courses in Kazakhstan"</span>, <span
+                class="hljs-attr">prices</span>: [<span class="hljs-number">56</span>, <span
+                class="hljs-number">324</span>] },
+        { <span class="hljs-attr">name</span>: <span class="hljs-string">"Courses in France"</span>, <span
+                class="hljs-attr">prices</span>: [<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>] },
+    ];
+
+    <span class="hljs-comment">// Варианты цен (фильтры), которые ищет пользователь</span>
+    <span class="hljs-keyword">let</span> requiredRange1 = [<span class="hljs-literal">null</span>, <span
+                class="hljs-number">200</span>];
+    <span class="hljs-keyword">let</span> requiredRange2 = [<span class="hljs-number">100</span>, <span
+                class="hljs-number">350</span>];
+    <span class="hljs-keyword">let</span> requiredRange3 = [<span class="hljs-number">200</span>, <span
+                class="hljs-literal">null</span>];</code></pre>
+    <p>
+        <b>Вывод:</b>
+    </p>
+    <pre><code class="language-javascript hljs">   <span class="hljs-comment">// [подходящие курсы для каждого варианта фильтра]</span></code></pre>
+
+    <p>
+        Дополнительно, вы также можете реализовать алгоритм сортировки курсов по
+        цене.
+    </p>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
