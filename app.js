@@ -24,7 +24,7 @@ let testCases = {
 }
 
 
-const filterByPriceRange = (requestRange, isSorting = false, fromOrTo = undefined, direction = '') => {
+const filterByPriceRange = (requestRange, isSorting = false, fromOrTo = 'from', direction = 'asc') => {
     let result = []
     for (let course of courses) {
         let resultString = `${course.name} ${course.prices} <br>`
@@ -54,9 +54,25 @@ const filterByPriceRange = (requestRange, isSorting = false, fromOrTo = undefine
     }
 }
 
-const filterAscDesc = (arr, fromOrTo, direction) => {
-    switch () {
-
+const filterAscDesc = (courses, fromOrTo, direction) => {
+    let idx
+    switch (fromOrTo) {
+        case 'to':
+            idx = 1
+            break
+        case 'from':
+        default:
+            idx = 0
+            break
+    }
+    if (direction === 'desc') {
+        courses.sort((a, b) => {
+            return b.prices[idx] - a.prices[idx]
+        })
+    } else {
+        courses.sort((a, b) => {
+            return a.prices[idx] - b.prices[idx]
+        })
     }
 }
 
