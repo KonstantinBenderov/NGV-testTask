@@ -27,7 +27,7 @@ let testCases = {
     3: [200, null],
 }
 
-const filterByPriceRange = (requestRange, isSorting = false, direction = 'ASC', fromOrTo = 'from') => {
+const filterByPriceRange = (requestRange, isSorting, direction, fromOrTo) => {
     let result = []
     for (let course of courses) {
 
