@@ -1,8 +1,12 @@
 "use strict"
 // search for output fields
-const outputs = document.querySelectorAll('.output code'),
-    output1 = outputs[0],
-    output2 = outputs[1]
+const output = document.querySelector('.output code'),
+    fromEl = document.querySelector('#from'),
+    toEl = document.querySelector('#to'),
+    isSortingEl = document.querySelector('#isSorting'),
+    directionEl = document.querySelector('#direction'),
+    fromOrToEl = document.querySelector('#fromOrTo'),
+    applyFilterButton = document.querySelector('#applyFilterButton')
 
 // Input data
 let courses = [
@@ -24,24 +28,27 @@ let testCases = {
 }
 
 
-const filterByPriceRange = (requestRange, isSorting = false, fromOrTo = 'from', direction = 'asc') => {
+const filterByPriceRange = (requestRange, isSorting = false, direction = 'ASC', fromOrTo = 'from') => {
     let result = []
     for (let course of courses) {
-        let resultString = `${course.name} ${course.prices} <br>`
-        let courseEmptyPrice = course.prices[0] === null && course.prices[1] === null
 
-        if (requestRange.includes(null)) {
-            if (requestRange[0] === null) {
-                if (!courseEmptyPrice && (requestRange[1] >= course.prices[0] && requestRange[1] <= course.prices[1]))
+        let isPricelessCourse
+        !course.prices[0] && !course.prices[1] ? isPricelessCourse = true : isPricelessCourse = false
+
+        if (requestRange.includes(null) || requestRange.includes('')) {
+            if (!!requestRange[1]) {
+                if (!isPricelessCourse && (requestRange[1] >= course.prices[0] || requestRange[1] <= course.prices[1]))
                     result.push(course)
-            } else {
-                if (!courseEmptyPrice && (requestRange[0] >= course.prices[0] && requestRange[0] <= course.prices[1])) {
+            } else if (!!requestRange[0]) {
+                if (!isPricelessCourse && (requestRange[0] >= course.prices[0] && requestRange[0] <= course.prices[1])) {
                     result.push(course)
                 }
+            } else {
+                result.push(course)
             }
         } else {
             requestRange[0] >= course.prices[0] && requestRange[0] <= course.prices[1] &&
-            requestRange[1] >= course.prices[0] || requestRange[1] <= course.prices[1] ?
+            (requestRange[1] >= course.prices[0] || requestRange[1] <= course.prices[1]) ?
                 result.push(course) : {}
         }
     }
@@ -49,45 +56,67 @@ const filterByPriceRange = (requestRange, isSorting = false, fromOrTo = 'from', 
         result = filterAscDesc(result, fromOrTo, direction)
     }
     for (let res of result) {
-        console.log(res)
-        output1.insertAdjacentHTML('beforeend', `${res.name} ${res.prices} <br>`)
+        output.insertAdjacentHTML('beforeend',
+            `${res.name}${' '.repeat(25-res.name.length)} ${res.prices[0]} ${res.prices[1]} <br>`)
     }
 }
 
 const filterAscDesc = (courses, fromOrTo, direction) => {
     let idx
     switch (fromOrTo) {
-        case 'to':
+        case 'TO':
             idx = 1
             break
-        case 'from':
+        case 'FROM':
         default:
             idx = 0
             break
     }
-    if (direction === 'desc') {
-        courses.sort((a, b) => {
+    if (direction === 'DESC') {
+        return courses.sort((a, b) => {
             return b.prices[idx] - a.prices[idx]
         })
     } else {
-        courses.sort((a, b) => {
+        return courses.sort((a, b) => {
             return a.prices[idx] - b.prices[idx]
         })
     }
 }
 
-// clear output field #1
-output1.innerHTML = ''
+
+const applyFilter = (requestRange, isSortingByPrice, direction, fromOrTo) => {
+    let _fromPrice, _toPrice,
+        itemFromClass, itemTillClass
+    requestRange[0] === '' ? _fromPrice = 'null' : _fromPrice = +requestRange[0]
+    requestRange[1] === '' ? _toPrice = 'null' : _toPrice = +requestRange[1]
+    typeof _fromPrice === 'number' ? itemFromClass = 'number' : itemFromClass = 'literal'
+    typeof _toPrice === 'number' ? itemTillClass = 'number' : itemTillClass = 'literal'
+    output.innerHTML = `<code class="language-javascript hljs"><span 
+        class="hljs-keyword">let</span> requestRange = [<span
+        class="hljs-${itemFromClass}">${_fromPrice}</span>, <span
+        class="hljs-${itemTillClass}">${_toPrice}</span>];</code>`
+    filterByPriceRange(requestRange, isSortingByPrice, direction, fromOrTo)
+}
+
+applyFilterButton.onclick = () => applyFilter(
+    [fromEl.value, toEl.value],
+    isSortingEl.checked,
+    directionEl.value,
+    fromOrToEl.value
+)
+
+// clear output field
+output.innerHTML = ''
+// fill output field with results of testCases
 for (let testCase in testCases) {
     let itemFromClass, itemTillClass
     typeof testCases[testCase][0] === 'number' ? itemFromClass = 'number' : itemFromClass = 'literal'
     typeof testCases[testCase][1] === 'number' ? itemTillClass = 'number' : itemTillClass = 'literal'
 
-    output1.insertAdjacentHTML('beforeend',
-        `<pre><code class="language-javascript hljs"><span 
+    output.insertAdjacentHTML('beforeend',
+        `<code class="language-javascript hljs"><span 
         class="hljs-keyword">let</span> requiredRange${testCase} = [<span 
         class="hljs-${itemFromClass}">${testCases[testCase][0]}</span>, <span 
-        class="hljs-${itemTillClass}">${testCases[testCase][1]}</span>];</code></pre>`)
-    filterByPriceRange(testCases[testCase])
+        class="hljs-${itemTillClass}">${testCases[testCase][1]}</span>];</code>`)
+    filterByPriceRange(testCases[testCase], true, 'ASC', 'FROM')
 }
-
