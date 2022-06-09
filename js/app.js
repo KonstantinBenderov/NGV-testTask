@@ -52,7 +52,7 @@ const filterByPriceRange = (requestRange, isSorting = false, direction = 'ASC', 
         }
     }
     if (isSorting) {
-        result = filterAscDesc(result, fromOrTo, direction)
+        result = sortByAscDesc(result, fromOrTo, direction)
     }
     for (let res of result) {
         output.insertAdjacentHTML('beforeend',
@@ -60,7 +60,7 @@ const filterByPriceRange = (requestRange, isSorting = false, direction = 'ASC', 
     }
 }
 
-const filterAscDesc = (courses, fromOrTo, direction) => {
+const sortByAscDesc = (courses, fromOrTo, direction) => {
     let idx
     switch (fromOrTo) {
         case 'TO':
