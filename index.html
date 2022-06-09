@@ -85,18 +85,38 @@
         <p>
             <b>Вывод:</b>
         </p>
-        <pre><code class="language-javascript hljs">   <span class="hljs-comment">// [подходящие курсы для каждого варианта фильтра]</span></code></pre>
+        <div style="display: flex;  min-height: 500px">
+            <form method="get">
+            <pre>
+                <b>Настройки фильтра</b>
+
+                <label for="from">От</label> <input id="from" type="number">  <label
+                    for="to">До</label> <input id="to" type="number">
+
+                <label for="isSorting">Сортировка</label> <input id="isSorting" type="checkbox">
+
+                <label for="direction">Направление сортировки:</label>
+                <select name="direction" id="direction">
+                    <option value="ASC" selected>По возрастанию</option>
+                    <option value="DESC"> По убыванию</option>
+                </select><select
+                    name="fromOrTo" id="fromOrTo">
+                    <option value="FROM" selected>минимальных цен</option>
+                    <option value="TO">максимальных цен</option>
+                </select>
+
+                <button id="applyFilterButton" type="button">Применить фильтр</button>
+            </pre>
+            </form>
+            <pre><code class="language-javascript hljs">   <span class="hljs-comment">// [подходящие курсы для каждого варианта фильтра]</span></code></pre>
+
+        </div>
     </div>
     <p>
         Дополнительно, вы также можете реализовать алгоритм сортировки курсов по
         цене.
     </p>
-    <div class="output">
-        <p>
-            <b>Песочница:</b>
-        </p>
-        <pre><code class="language-javascript hljs">   <span class="hljs-comment">// [подходящие курсы для каждого варианта фильтра]</span></code></pre>
-    </div>
+</div>
 
 
 </div>
