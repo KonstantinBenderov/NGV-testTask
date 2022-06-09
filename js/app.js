@@ -27,7 +27,6 @@ let testCases = {
     3: [200, null],
 }
 
-
 const filterByPriceRange = (requestRange, isSorting = false, direction = 'ASC', fromOrTo = 'from') => {
     let result = []
     for (let course of courses) {
@@ -82,7 +81,6 @@ const filterAscDesc = (courses, fromOrTo, direction) => {
         })
     }
 }
-
 
 const applyFilter = (requestRange, isSortingByPrice, direction, fromOrTo) => {
     let _fromPrice, _toPrice,
